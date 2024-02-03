@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.selfie {
+    width: 75%; /* Adjust the width as needed */
+    height: 75%;
+}

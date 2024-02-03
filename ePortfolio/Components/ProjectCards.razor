@@ -1,0 +1,28 @@
+﻿@inject HttpClient httpClient
+@using ePortfolio.Models 
+@inject ILogger<ProjectCards> Logger
+@inject NavigationManager NavigationManager
+
+<div class="card-columns">
+    @if (Projects != null)
+    {
+        foreach (var project in Projects)
+        {
+            @project.Title;
+        }
+    }
+</div>
+
+@code
+{
+    private IEnumerable<Project>? Projects;
+
+    protected override async Task OnInitializedAsync() {
+        Projects = await httpClient.GetFromJsonAsync<IEnumerable<Project>>(NavigationManager.BaseUri + "api/projects");
+        Console.WriteLine("Projects amount: " + Projects?.Count().ToString());
+        string currentDirectory = Directory.GetCurrentDirectory();
+
+        //Remove this later
+        Logger.LogInformation("Current Web Directory: " + NavigationManager.BaseUri);
+    }
+}
